@@ -1,8 +1,12 @@
-# Template para a disciplina de Redes Neurais e Algoritmos Genéticos
+# Algoritmos Genéticos e Redes Neurais
 
-Use este template como base para organizar seus experimentos na disciplina de Redes Neurais e Algoritmos Genéticos. 
+Resumo:
 
-Lembretes:
+Este repositório contém experimentos e resoluções de diversos Algoritmos Genéticos e de Redes Neurais, realizados para a disciplina de Algoritmos Genéticos e Redes Neurais, ministrado pelo professor Daniel Roberto Cassar durante o curso de Bacharelado em Ciência e Tecnologia e Inovação pela Ilum Escola de Ciência.
+
+A linguagem de programação utilizada para o desenvolvimento dos experimentos estão em Python, e foram programados através do Jupyter Notebook (Jupyter Lab)
+
+As atividades estão separadas em pastas, contendo os arquivos de experimentos separadamente e em ordem, que serão adicionados ao longo do curso conforme forem realizados.
 
 + Cada notebook deve ter apenas um experimento
 + Jamais faça importações utilizando o asterisco. Use espaços de nome ou importe apenas o que for usar no seu experimento
