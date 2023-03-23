@@ -21,6 +21,92 @@ def gene_caixas():
     gene = random.choice(lista)
     return gene
 
+def gene_cnb(valor_max_caixa):
+    """ Gera um gene válido para o problema das caixas não-binárias
+    
+    Args:
+        valor_max_caix: Valor máximo que a caixa pode assumir
+        
+    Returns:
+        Um valor de 0 a 'valor_max_caixa' (incluso)
+    """
+    gene = random.randint(0, valor_max_caixa)
+    return gene
+
+def individuo_cnb(numero_genes, valor_max_caixa):
+    """ Gera um individuo válido para o problema das caixas não binárias.
+    
+    Args:
+        numero_genes: Número de genes na lista que representa o indivíduo
+        valor_max_caixa: Valor máximo que a caixa pode assumir
+        
+    Returns:
+        Lista que representa um individuo válido para o problema das CNB
+    """
+    individuo = []
+    for _ in range(numero_genes):
+        gene = gene_cnb(valor_max_caixa)
+        individuo.append(gene)
+    return individuo
+
+def populacao_cnb(tamanho_populacao, numero_genes, valor_max_caixa):
+    """ Cria uma populacao de individuos para o problema das caixas não-binárias
+    
+    Args:
+        tamanho_populacao: número de indivíduos da população
+        numero_genes: número de genes do indivíduo
+        valor_max_caixa: valor máximo que a caixa pode assumir
+        
+    Returns:
+        Uma lista onde cada item representa um indivíduo
+    """
+    populacao = []
+    for _ in range(tamanho_populacao):
+        individuo = individuo_cnb(numero_genes, valor_max_caixa)
+        populacao.append(individuo)
+    return populacao
+
+def funcao_objetivo_cnb(individuo):
+    """ Calcula o fitness do individuo para o problema das caixas não-binárias
+    
+    Args:
+        individuo: lista que representa um indivíduo dentro do problema das CNB
+        
+    Returns:
+        Um valor que representa o fitness do indivíduo
+    """
+    fitness = sum(individuo)
+    return fitness
+
+def funcao_objetivo_pop_cnb(populacao):
+    """ Calcula o fitness da população completa
+    
+    Args:
+        populacao: lista com todos os individuos da população
+        
+    Returns:
+        Uma lista com o fitness de cada individuo em ordem
+    """
+    fitness_pop = []
+    for individuo in populacao:
+        fitness_ind = funcao_objetivo_cnb(individuo)
+        fitness_pop.append(fitness_ind)
+    return fitness_pop
+
+def mutacao_cnb(individuo, valor_max_caixa):
+    """ Realiza a mutação do individuo
+    
+    Args:
+        individuo: individuo que deve sofrer a mutação
+        valor_max_caixa: valor maximo que a caixa pode assumir
+        
+    Returns:
+        Individuo que sofreu a mutação
+    """
+    gene_a_ser_mutado = random.randint(0, len(individuo) - 1)
+    individuo[gene_a_ser_mutado] = gene_cnb(valor_max_caixa)
+    return individuo
+
 def individuo_cb(n):
     """Gera um indivíduo para o problema das caixas binárias.
     
@@ -111,3 +197,14 @@ def funcao_objetivo_pop_cb(populacao):
         fobj = funcao_objetivo_cb(individuo)
         fitness.append(fobj)
     return fitness
+
+def funcao_ord(lista_letras):
+    """ Converte letras em números
+    
+    Args:
+        lista_letras: Lista contendo as letras que desejamos converter em números
+        
+    Returns:
+        Uma lista de números
+    """
+    
