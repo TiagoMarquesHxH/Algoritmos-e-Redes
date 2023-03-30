@@ -90,3 +90,13 @@ Ele é capaz encontrar os mínimos e máximos da função objetiva desde que haj
 Sem a etapa de mutações a população final seria obtida exclusivamente pelo cruzamento e seleção, e no caso onde a população inicial apresenta muitos indivíduos com genes 0, a população final não teria bons candidatos, que poderiam ter sido melhores caso as mutações pudessem acontecer e alterar genes beneficamente ao longo das gerações;
 
 Com a mutação muito alta, obter uma população resultante na qual todos os indivíduos apresentam todos os genes possíveis como 1 seria impossível, pois como as mutações podem tanto beneficiar como prejudicar, alterações consecutivas nos genes tornariam as populações resultantes completamente aleatórias, aumentando conforme o número de gerações aumenta.
+
+## Experimento A.04 - Problema das caixas não-binárias
+
+Este experimento é diferente dos demais, pois aqui não consideramos caixas com valores de gene de apenas 0 ou 1, e sim qualquer valor inteiro que pertença ao conjunto [0, 100]. A finalidade ainda é a mesma, encontrar a melhor combinação de valores onde a soma destes deve ser a máxima possível.
+
+Para isso, criamos novas funções semelhantes às dos problemas envolvendo caixas binárias, como as funções de gene, mutação, indivíduos e a função objetivo, com a diferença de incluirmos o método `.randint` selecionando valores aleatórios de 0 até o valor máximo da caixa (100). Também foram adicionados na função objetivo a soma dos genes do indivíduo para que assim seja possível obter o valor máximo.
+
+<h4> Conclusão do Experimento </h4>
+
+Este algoritmo também apresenta caráter probabilístico, pois ainda depende de um grande número de gerações para obter uma solução. Para este algoritmo tentar encontrar uma solução com valor máximizado de 400, ele necessitaria de gerações ainda maiores do que as caixas binárias visto os valores possíveis e a interferência das mutações nestes valores. Logo, não é um algoritmo muito eficiente para encontrar uma solução de máximização.
