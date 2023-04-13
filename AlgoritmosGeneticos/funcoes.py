@@ -43,6 +43,33 @@ def cria_cidades(n):
 
     return cidades
 
+def computa_mochila(individuo, objetos, ordem_dos_nomes):
+    """Computa o valor total e peso total de uma mochila
+    Args:
+      individiuo:
+        Lista binária contendo a informação de quais objetos serão selecionados.
+      objetos:
+        Dicionário onde as chaves são os nomes dos objetos e os valores são
+        dicionários com a informação do peso e valor.
+      ordem_dos_nomes:
+        Lista contendo a ordem dos nomes dos objetos.
+    Returns:
+      valor_total: valor total dos itens da mochila em unidades de dinheiros.
+      peso_total: peso total dos itens da mochila em unidades de massa.
+    """
+
+    valor_total = 0
+    peso_total = 0
+    
+    for pegou_o_item_ou_nao, nome_do_item in zip(individuo, ordem_dos_nomes):
+        if pegou_o_item_ou_nao == 1:
+            valor_do_item = objetos[nome_do_item]["valor"]
+            peso_do_item = objetos[nome_do_item]["peso"]
+            
+            valor_total = valor_total + valor_do_item
+            peso_total = peso_total + peso_do_item
+
+    return valor_total, peso_total
 
 ###############################################################################
 #                                    Genes                                    #
@@ -242,12 +269,15 @@ def selecao_roleta_max(populacao, fitness):
 
 def selecao_torneio_min(populacao, fitness, tamanho_torneio=3):
     """Faz a seleção de uma população usando torneio.
+    
     Nota: da forma que está implementada, só funciona em problemas de
     minimização.
+    
     Args:
       populacao: população do problema
       fitness: lista com os valores de fitness dos individuos da população
       tamanho_torneio: quantidade de invidiuos que batalham entre si
+      
     Returns:
       Individuos selecionados. Lista com os individuos selecionados com mesmo
       tamanho do argumento `populacao`.
@@ -443,7 +473,6 @@ def funcao_objetivo_senha(individuo, senha_verdadeira):
     return diferenca
 
 
-# NOVIDADE
 def funcao_objetivo_cv(individuo, cidades):
     """Computa a funcao objetivo de um individuo no problema do caixeiro viajante.
     Args:
@@ -476,6 +505,31 @@ def funcao_objetivo_cv(individuo, cidades):
     distancia = distancia + percurso
     
     return distancia
+
+def funcao_objetivo_mochila(individuo, objetos, limite, ordem_dos_nomes):
+    """Computa a funcao objetivo de um candidato no problema da mochila.
+    Args:
+      individiuo:
+        Lista binária contendo a informação de quais objetos serão selecionados.
+      objetos:
+        Dicionário onde as chaves são os nomes dos objetos e os valores são
+        dicionários com a informação do peso e valor.
+      limite:
+        Número indicando o limite de peso que a mochila aguenta.
+      ordem_dos_nomes:
+        Lista contendo a ordem dos nomes dos objetos.
+    Returns:
+      Valor total dos itens inseridos na mochila considerando a penalidade para
+      quando o peso excede o limite.
+    """
+
+    valor_mochila, peso_mochila = computa_mochila(individuo, objetos, ordem_dos_nomes)
+    
+    if peso_mochila > limite:
+        return 0.01
+    
+    else:
+        return valor_mochila
 
 
 ###############################################################################
@@ -527,7 +581,6 @@ def funcao_objetivo_pop_senha(populacao, senha_verdadeira):
     return resultado
 
 
-# NOVIDADE
 def funcao_objetivo_pop_cv(populacao, cidades):
     """Computa a funcao objetivo de uma população no problema do caixeiro viajante.
     Args:
@@ -546,11 +599,52 @@ def funcao_objetivo_pop_cv(populacao, cidades):
         resultado.append(funcao_objetivo_cv(individuo, cidades))
     return resultado
 
+def funcao_objetivo_pop_mochila(populacao, objetos, limite, ordem_dos_nomes):
+    """Computa a fun. objetivo de uma populacao no problema da mochila
+    Args:
+      populacao:
+        Lista com todos os individuos da população
+      objetos:
+        Dicionário onde as chaves são os nomes dos objetos e os valores são
+        dicionários com a informação do peso e valor.
+      limite:
+        Número indicando o limite de peso que a mochila aguenta.
+      ordem_dos_nomes:
+        Lista contendo a ordem dos nomes dos objetos.
+    Returns:
+      Lista contendo o valor dos itens da mochila de cada indivíduo.
+    """
+
+    resultado = []
+    for individuo in populacao:
+        resultado.append(
+            funcao_objetivo_mochila(
+                individuo, objetos, limite, ordem_dos_nomes
+            )
+        )
+
+    return resultado
+
 ###############################################################################
 #                         Experimentos Extras                       #
 ###############################################################################
 
 # Experimento de Himmelblau
+
+def funcao_objetivo_himmelblau(individuo):
+    """ Função que irá calcular a função fitness na função Himmelblau
+    
+    Args:
+        individuo: lista de genes com os valores para X e Y
+        
+    Returns:
+        Valor representando um valor da função para os genes X e Y
+    """
+    
+    x = individuo[0]
+    y = individuo[1]
+    return Himmelblau(x, y)
+    
 
 def Himmelblau(x,y):
     """ Função objetivo a qual desejamos encontrar o ponto mínimo global. Esta
@@ -561,17 +655,17 @@ def Himmelblau(x,y):
         y: Coordenada no eixo y
         
     Returns:
-        Resolução da função
+        Resolução da função para os pontos X e Y
         
     """
     
-    f = (x**2 +y -11)**2 + (x + y**2 - 7)**2
+    f = ((x**2 +y -11)**2) + ((x + y**2 - 7)**2)
     
     return f
 
 
 def gene_him():
-    """ geração de um valor numérico entre o valor 0 e o valor 10
+    """ Geração de um valor numérico entre o valor 0 e o valor 10
     
     Args:
         
@@ -622,3 +716,77 @@ def populacao_him(tamanho, n_genes):
         populacao.append(individuo_him(n_genes))
         
     return populacao
+
+def selecao_torneio_him(populacao, fitness, tamanho_torneio=3):
+    """Faz a seleção de uma população usando torneio.
+    
+    Nota: da forma que está implementada, só funciona em problemas de
+    minimização.
+    
+    Args:
+      populacao: população do problema
+      fitness: lista com os valores de fitness dos individuos da população
+      tamanho_torneio: quantidade de invidiuos que batalham entre si
+      
+    Returns:
+      Individuos selecionados. Lista com os individuos selecionados com mesmo
+      tamanho do argumento `populacao`.
+    """
+    selecionados = []
+
+    # criamos essa variável para associar cada individuo com seu valor de fitness
+    par_populacao_fitness = list(zip(populacao, fitness))
+
+    # vamos fazer len(populacao) torneios! Que comecem os jogos!
+    for _ in range(len(populacao)):
+        combatentes = random.sample(par_populacao_fitness, tamanho_torneio)
+
+        # é assim que se escreve infinito em python
+        minimo_fitness = float("inf")
+
+        for par_individuo_fitness in combatentes:
+            
+            individuo = par_individuo_fitness[0]
+            fit = par_individuo_fitness[1]
+            # queremos o individuo de menor fitness
+            if fit < minimo_fitness:
+                selecionado = individuo
+                minimo_fitness = fit
+
+        selecionados.append(selecionado)
+
+    return selecionados
+
+def mutacao_him(individuo):
+    """Troca o valor de variáveis dos indivíduos.
+    
+    Args:
+        individuo: lista represenando um individuo
+        
+    Return:
+        Um individuo com um gene mutado.
+    """
+    
+    gene_a_ser_mutado = random.randint(0, len(individuo) - 1)
+    individuo[gene_a_ser_mutado] = random.random() * 10
+    
+    return individuo
+
+def cruzamento_him(pai, mae):
+    """ Operador de cruzamento de ponto simples, aplicada ao problema de Himmelblau
+    
+    Args:
+        pai: uma lista representando um individuo
+        mae: uma lista representando um individuo
+        
+    Returns:
+        Duas listas, sendo que cada uma representa um filho dos pais que foram passados 
+        como argumentos.
+    """
+    
+    ponto_de_corte = random.randint(1, len(pai) - 1)
+    
+    filho1 = pai[:ponto_de_corte] + mae[ponto_de_corte:]
+    filho2 = mae[:ponto_de_corte] + pai[ponto_de_corte:]
+    
+    return filho1, filho2
