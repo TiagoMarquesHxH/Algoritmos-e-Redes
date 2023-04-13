@@ -100,3 +100,30 @@ Para isso, criamos novas funções semelhantes às dos problemas envolvendo caix
 <h4> Conclusão do Experimento </h4>
 
 Este algoritmo também apresenta caráter probabilístico, pois ainda depende de um grande número de gerações para obter uma solução. Para este algoritmo tentar encontrar uma solução com valor máximizado de 400, ele necessitaria de gerações ainda maiores do que as caixas binárias visto os valores possíveis e a interferência das mutações nestes valores. Logo, não é um algoritmo muito eficiente para encontrar uma solução de máximização.
+
+## Experimento A.05 - Descobrindo a senha
+
+Agora, o problema o qual analisaremos será o de se descobrir uma senha qualquer, que inclua apenas as letras do alfabeto, e levando em consideração que nossa função objetivo já sabe qual a senha correta. 
+
+Podemos construir funções que façam uma quantificação da distância entre o nosso palpite de senha e a senha correta, e para isso, definimos que cada letra da senha seja um gene, e então comparamos gene a gene a distância entre estes, baseado em uma variável que passa todas as letras possíveis para um gene poder assumir. Como queremos encontrar a senha, logo é fácil ver que estamos analisando um problema de `minimização`, pois queremos que a distância entre as letras palpitadas e as corretas sejam as menores possíveis, até o ponto em que seja zero, representando que aquela letra corresponde à letra da senha original naquela posição.
+
+<h4> Conclusão do Experimento </h4>
+
+Este experimento teve um grau de complexidade mais elevada do que os anteriores, necessitando que novas funções fossem criadas para atender os requisitos para a solução do problema. O método da função objetivo desta vez foi o contrário do que o do experimento anterior, pois neste comparamos as letras candidatas e as letras originais, e desejamos que a distância seja 0 entre elas, significando que a letra candidata corresponde à letra original. Ou seja, tratamos aqui de um problema de minimização, pois queremos a menor distância possível entre as letras, e no experimento anterior o problema tratado envolvia maximização. O algoritmo também apresenta caráter probabilístico, pois apesar de não termos um gerador de populações, temos um loop que irá gerar um indivíduo contendo letras aleatoriamente, e assim irá comparar com a senha original.
+
+## Experimento A.06 - Caixeiro viajante
+
+O problema do caixeiro viajante é um problema relativamente conhecido na área de algoritmos e computação, principalmente pelo fato de ser um problema do tipo `NP` (Polinomial não-determinístico) onde sua verificação só pode ser obtida em tempo polinomial. O problema constitui, resumidamente, no caixeiro andar por todas as cidades de uma região, sem passar pela mesma cidade novamente, percorrendo o caminho com a menor distância possível. Nota-se que temos muitas possibilidades de caminho dependendo da quantidade de cidades, o que explica a quantidade de tempo necesária para se encontrar uma solução.
+
+Sua aplicação em um algoritmo genético terá algumas novidades, pois no problema do caixeiro viajante, não podemos passar pela mesma cidade, logo um indivíduo que apresenta genes repetidos será `inválido`. Então, para a geração de indivíduos válidos, teremos que reconsiderar as funções de cruzamento e mutação, para que atendam a este novo requisito.
+No experimento, consideraremos que o caixeiro visitará apenas 5 cidades, e deverá visitar todas, sem visitar a mesma novamente, e retornará à cidade inicial. Para isso ele deve descobrir o caminho que terá menor distância entre `n = 5` pontos de um plano cartesiano `(x,y)`.
+
+A função mutação teve seu modo de funcionamento alterado, pois, a fim de gerarmos indivíduos válidos, não podemos alterar o valor do gene, mas podemos trocá-los de posição no índice da lista indivíduos. Esta troca permite que novos indivíduos possam ser cruzados, trazendo novas possibilidades para o algoritmo trabalhar sobre.
+A função cruzamento também foi alterada, pois poderíamos acabar cruzando indivíduos com genes que ambos pai e mãe possuem, gerando uma prole inválida. Para evitar isso, a alteração fez com que a função agora realize um cruzamento `ordenado`, ou seja, ela define `pontos de corte` dentre o indivíduo, e então seleciona os genes dentro deste ponto de corte, passando-os para os filhos. A função basicamente passa os genes do pai e da mãe para outras 2 proles, mas em uma ordem diferente da ordem presente no pai e na mãe ou na outra prole.
+
+Por ultimo, realizamos a permutação entre os caminhos possíveis e calculamos a função fitness para cada caminho, e selecionamos aquele com o melhor fitness.
+
+<h4> Conclusão do Experimento </h4>
+
+Neste experimento, foi trabalhado o problema do caixeiro viajante, onde tentamos desenvolver uma solução para o algoritmo encontrar o caminho mais curto ao percorrer por todas as cidades de uma região/estado, sem que haja a repetição das cidades percorridas. Vale ressaltar que o problema do caixeiro viajante é um problema NP (Polinomial não-determinístico), logo, não utilizaremos um grande número de cidades visando obter uma solução em tempo polinomial. A estratégia utilizada para a implementação deste algoritmo consistiu em utilizarmos funções de minimização, já que queremos obter a menor distância percorrida ao percorrermos todas as cidades. Também realizamos permutações para encontrarmos todos os caminhos possíveis e suas respectivas distâncias percorridas, e comparamos as distâncias encontradas durante as permutações a fim de encontrarmos o melhor caminho.
+Após alguns testes variando o número de gerações, percebe-se que o algoritmo apresenta um caráter probabilístico, pois encontrará candidatos com distâncias variadas, não sendo necessariamente o melhor caminho a ser percorrido. Esta diferença entre o melhor caminho dos candidatos é devido à condições como as mutações, o número de gerações e a ordem dos genes dos indivíduos.
