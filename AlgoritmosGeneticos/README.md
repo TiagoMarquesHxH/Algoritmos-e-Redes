@@ -81,14 +81,11 @@ O problema abordado é, novamente, das caixas binárias, considerando 4 caixas, 
 
 <h4> Conclusão do Experimento </h4>
 
-O algoritmo cumpre razoávelmente o objetivo de atingir os melhores candidatos através das gerações sucessivas, juntamente com as etapas de cruzamento, mutação e seleção, mesmo se o número de gerações não for muito grande. Porém, o fator mutação que pode ser benéfico ao mutar um gene 0 para 1 e facilitar a etapa de cruzamento, apresenta um risco bem relevante em seu funcionamento, pois pode interferir negativamente no algoritmo ao alterar o valor de um gene para 0 ao decorrer das gerações ou ao final da última geração, o que dificultaria a obtenção dos melhores candidatos finais;
-
-Este algoritmo é probabilístico, pois se baseia muito em chances de variações ocorrerem (como a criação das gerações iniciais e probabilidades de mutação/cruzamento), e a população resultante, apesar de aparentar ser determinística após um grande número de gerações, irá variar quando o número de gerações for pequeno;
-
-Ele é capaz encontrar os mínimos e máximos da função objetiva desde que haja um grande número de gerações;
-
-Sem a etapa de mutações a população final seria obtida exclusivamente pelo cruzamento e seleção, e no caso onde a população inicial apresenta muitos indivíduos com genes 0, a população final não teria bons candidatos, que poderiam ter sido melhores caso as mutações pudessem acontecer e alterar genes beneficamente ao longo das gerações;
-
+Aqui abordamos os conceitos iniciais sobre um algoritmo genético e como construir um algoritmo deste tipo, e para entender melhor como realizar esta construção, analisamos um problema simples, o das caixas binárias.
+Este problema constitui em encontrarmos uma população que contenha individuos no qual o resultado da soma seja o maior possível, caracterizando um problema de maximização.
+O algoritmo cumpre razoávelmente o objetivo de atingir os melhores candidatos através das gerações sucessivas, juntamente com as etapas de cruzamento, mutação e seleção, mesmo se o número de gerações não for muito grande.
+É um algorítimo probabilístico, pois se baseia muito em chances de variações ocorrerem (como a criação das gerações iniciais e probabilidades de mutação/cruzamento), e a população resultante, apesar de aparentar ser determinística após um grande número de gerações, irá variar quando o número de gerações for pequeno.
+A função objetivo pode encontrar os mínimos e máximos da função objetiva desde que haja um grande número de gerações, e, sem a etapa de mutações a população final seria obtida exclusivamente pelo cruzamento e seleção, e no caso onde a população inicial apresenta muitos indivíduos com genes 0, a população final não teria bons candidatos, que poderiam ter sido melhores caso as mutações pudessem acontecer e alterar genes beneficamente ao longo das gerações. 
 Com a mutação muito alta, obter uma população resultante na qual todos os indivíduos apresentam todos os genes possíveis como 1 seria impossível, pois como as mutações podem tanto beneficiar como prejudicar, alterações consecutivas nos genes tornariam as populações resultantes completamente aleatórias, aumentando conforme o número de gerações aumenta.
 
 ## Experimento A.04 - Problema das caixas não-binárias
@@ -99,7 +96,11 @@ Para isso, criamos novas funções semelhantes às dos problemas envolvendo caix
 
 <h4> Conclusão do Experimento </h4>
 
-Este algoritmo também apresenta caráter probabilístico, pois ainda depende de um grande número de gerações para obter uma solução. Para este algoritmo tentar encontrar uma solução com valor máximizado de 400, ele necessitaria de gerações ainda maiores do que as caixas binárias visto os valores possíveis e a interferência das mutações nestes valores. Logo, não é um algoritmo muito eficiente para encontrar uma solução de máximização.
+Este experimento aborda a construção de um algoritmo genético para a resolução do problema das caixas não-binárias. O problema das caixas não-binárias é bem similar ao problema das caixas binárias, com a exceção de que cada caixa (cada gene) pode assumir qualquer valor dentro do conjunto estipulado [0,100], e não apenas 0 ou 1. 
+
+Dado o problema, foi necessária a criação de novas funções para atender a esta diferença, como a criação de uma nova função de mutação, pois agora o gene pode ser mutado para qualquer valor do conjunto, e de população.
+
+Após a implementação destas alterações, notamos que o algoritmo apresenta caráter probabilístico, pois ainda depende de um grande número de gerações para obter uma solução. Para este algoritmo tentar encontrar uma solução com valor máximizado de 400, ele necessitaria de gerações ainda maiores do que as caixas binárias visto os valores possíveis e a interferência das mutações nestes valores. Logo, não é um algoritmo muito eficiente para encontrar uma solução de máximização.
 
 ## Experimento A.05 - Descobrindo a senha
 
@@ -109,7 +110,13 @@ Podemos construir funções que façam uma quantificação da distância entre o
 
 <h4> Conclusão do Experimento </h4>
 
-Este experimento teve um grau de complexidade mais elevada do que os anteriores, necessitando que novas funções fossem criadas para atender os requisitos para a solução do problema. O método da função objetivo desta vez foi o contrário do que o do experimento anterior, pois neste comparamos as letras candidatas e as letras originais, e desejamos que a distância seja 0 entre elas, significando que a letra candidata corresponde à letra original. Ou seja, tratamos aqui de um problema de minimização, pois queremos a menor distância possível entre as letras, e no experimento anterior o problema tratado envolvia maximização. O algoritmo também apresenta caráter probabilístico, pois apesar de não termos um gerador de populações, temos um loop que irá gerar um indivíduo contendo letras aleatoriamente, e assim irá comparar com a senha original.
+Agora, abordamos o problema de descobrirmos uma senha. Aqui, no entanto, teremos a senha correta passada para a função objetivo, para que as senhas que o algoritmo encontrar como candidato, seja comparada com a senha original e assim dê um valor de fitness baseado na diferença entre as senhas.
+
+Logo, fica claro que o que estamos analisando é um problema de minimização, pois queremos a menor distância entre o indivíduo conténdo os genes (letras) e as letras da senha original.
+
+E assim, enquanto o critério de parada não for atingido, realizamos a construção de novas populações de indivíduos e checamos o fitness (distancia) da senha que o individuo representa, até quando a distância entre todos os genes dos individuos seja 0, que representa que o individuo candidato corresponde ao individuo que é a senha correta
+
+Com isso, vimos que este experimento teve um grau de complexidade mais elevada do que os anteriores, necessitando que novas funções fossem criadas para atender os requisitos para a solução do problema. O método da função objetivo desta vez foi o contrário do que o do experimento anterior, pois neste comparamos as letras candidatas e as letras originais, e desejamos que a distância seja 0 entre elas, significando que a letra candidata corresponde à letra original. Ou seja, tratamos aqui de um problema de minimização, pois queremos a menor distância possível entre as letras, e no experimento anterior o problema tratado envolvia maximização. O algoritmo também apresenta caráter probabilístico, pois apesar de não termos um gerador de populações, temos um loop que irá gerar um indivíduo contendo letras aleatoriamente, e assim irá comparar com a senha original.
 
 ## Experimento A.06 - Caixeiro viajante
 
