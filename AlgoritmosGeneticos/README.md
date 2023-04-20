@@ -134,3 +134,42 @@ Por ultimo, realizamos a permutação entre os caminhos possíveis e calculamos 
 
 Neste experimento, foi trabalhado o problema do caixeiro viajante, onde tentamos desenvolver uma solução para o algoritmo encontrar o caminho mais curto ao percorrer por todas as cidades de uma região/estado, sem que haja a repetição das cidades percorridas. Vale ressaltar que o problema do caixeiro viajante é um problema NP (Polinomial não-determinístico), logo, não utilizaremos um grande número de cidades visando obter uma solução em tempo polinomial. A estratégia utilizada para a implementação deste algoritmo consistiu em utilizarmos funções de minimização, já que queremos obter a menor distância percorrida ao percorrermos todas as cidades. Também realizamos permutações para encontrarmos todos os caminhos possíveis e suas respectivas distâncias percorridas, e comparamos as distâncias encontradas durante as permutações a fim de encontrarmos o melhor caminho.
 Após alguns testes variando o número de gerações, percebe-se que o algoritmo apresenta um caráter probabilístico, pois encontrará candidatos com distâncias variadas, não sendo necessariamente o melhor caminho a ser percorrido. Esta diferença entre o melhor caminho dos candidatos é devido à condições como as mutações, o número de gerações e a ordem dos genes dos indivíduos.
+
+## Experimento A.07 - Aplicando restrições na busca
+
+Neste experimento nós tratamos o problema da mochila, onde queremos armazenar itens em uma mochila e ter um maior lucro no final baseado nos valores do item. Porém, não podemos considerar apenas os valores dos itens para armazenar, pois a mochila tem um ***limite*** de peso que pode suportar, logo é necessário criar uma nova função de suporte que compute o peso e o valor de cada item para o cálculo da função objetivo, verificando se o indivíduo contendo os genes que representam os itens é um indivíduo ***válido*** para ser um candidato do nosso problema.
+
+Logo de início, adotamos a estratégia de criarmos um dicionário contendo valor e peso de cada item que pode ser colocado na mochila, e definimos que um indivíduo será composto por genes binários (ou seja, que assumem o valor 0 ou 1). Os genes representarão se um item está presente naquele individuo (1) ou não (0), e assim teremos diversos indivíduos contendo itens variados.
+Foram utilizadas diversas funções do problema das caixas binárias como mutação e seleção, e esta ultima realizará a seleção baseando-se na condição se o indivíduo é válido (não excede o peso).
+Na função objetivo, aplicamos uma ***restrição*** aos valores de mochila encontrados, pois se temos um valor de mochila maior que o limite de peso desta, o valor de fitness retornado será de 0.01, convidando o algoritmo a não utilizar este valor durante a seleção, pois o candidato viola a restrição.
+
+Por fim, como temos um problema de maximização, a variável ***menor_fitness_já_visto*** tem valor -float ("inf"), para que esta seja facilmente substituida pelo primeiro valor de fitness que o algoritmo achar.
+
+<h4> Conclusao do Experimento </h4>
+
+Após correr o algoritmo, podemos ver que este consegue resolver o problema da mochila respeitando as restrições impostas, mas pode não ser o método mais efetivo visto que realiza uma busca aleatória utilizanod os genes sorteados pelo módulo .random contendo valores e pesos. O estatabelecimento uma restrição para a execução do algoritmo foi crucial para que conseguíssemos encontrar um candidato válido para a resolução do problema, visto que sem ela, poderíamos facilmente cair em um candidato com itens de muito valor, mas excedendo o peso da mochila.
+
+# Experimentos Extras
+
+Nesta seção, temos alguns experimentos extras realizados, sua problemática e sua conclusão. Estes experimentos também se encontram neste repositório, nesta mesma pasta de Algoritmos Genéticos.
+
+## Experimento GA.06 - Himmelblau e sua função
+
+A função Himmelblau é uma função que possui 4 mínimos globais, e é utilizada justamente para o teste de algorítmos de otimização.
+
+Esta função possui 4 mínimos, e o objetivo deste experimento é encontrar estes pontos mínimos, através de algorítmos genéticos.
+
+Como tratamos de um problema de minimização, e vamos querer encontrar a distancia mínima dos pontos com o ponto mínimo global, podemos utilizar funções semelhantes às do experimento de senha e para minimização
+
+Um ponto muito importante, é entender que **a própria função Himmelblau, quando receber os valores de X e Y, retornará um valor que será o fitness** usado para calcular o quão bom é aquele indivíduo para resolver nosso problema. Assim, passamos um indivíduo para a função Himmelblau, esta retornará um valor de fitness, e baseado em comparações dos fitness dos indivíduos que formam a população, encontraremos uma função na qual o fitness será 0, representando o mínimo global da função. 
+
+<h4> Conclusão do Experimento </h4>
+
+**O problema abordado neste experimento envolve o desenvolvimento de um método, via algoritmos genéticos, para se encontrar o mínimo global da função Himmelblau, função esta que possui 4 pontos de mínimo global idênticas. De inicio, percebe-se que o problema se trata de um problema de minimização, visto que queremos minimizar o valor de f(x) para até um par de pontos X e Y onde a derivada segunda seja igual a zero, caracterizando o ponto mínimo global. Com isso, tive como base um experimento já abordado anteriormente sobre descobrir uma senha devido à similaridade com este problema de minimização.**
+
+**Para encontrar o mínimo, primeiro considerei que os valores que os genes podem assumir devem ser *.float*, o qual multipliquei por 10 para poder ter o valor dentro do range possível onde podem estar os valores de ponto mínimo.**
+
+**Também alterei um pequeno parâmetro nas mutações para que o gene do indivíduo mutado seja um valor válido (.float multiplicado por 10)**
+
+**Ao final, vemos que neste problema de minimização, o algoritmo consegue encontrar o ponto mínimo da função porém necessita de um número não tão baixo de gerações para que isto ocorra, mostrando que este algoritmo é probabilístico.
+Outros métodos, como calcular a derivada segunda da função podem ser mais eficientes, dada a ordem e a complexidade da função
