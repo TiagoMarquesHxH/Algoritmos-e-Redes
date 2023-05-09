@@ -20,4 +20,12 @@ Os neurônios são os responsáveis por armazenar os dados que serão passados p
 
 - `Neurônios de Output`: Devolvem os dados após estes serem mandados pelos neurônios de input e tratados pelas funções de ativação. Seu conjunto forma a `camada de output`
 
+### Funções de Ativação (g(x))
+
+As funções de ativação se encontram nos neurônios da camada oculta, sendo responsáveis por transformar/fitar os dados recebidos. Existem inúmeras funções de ativação com cada uma tendo um formato diferente, fazendo com que uma rede neural que possua vários neurônios da camada oculta seja capaz de fitar quase qualquer dado que lhe seja passado.
+Matematicamente, podemos visualizar da forma que, os dados recebidos (x) são passados para o neurônio da camada oculta, e ao recebê-los, o neurônio irá aplicá-los em uma função g(x), retornar o valor do dado quando aplicado em g(x) e adicionar um `viés` **b** específico daquele neurônio.
+
 ### Sinapses (Setas)
+
+As sinapses tem a importante função de transportar os dados que os neurônios carregam, e durante o processo de transporte, um valor `peso` é atribuído. Os dados transportados podem então serem passados para os neurônios ocultos (que contém as funções de ativação), retornados como output, ou então sofrerem alterações matemáticas por meio de `operadores` matemáticos, como soma, multiplicação e divisão por exemplo.
+
