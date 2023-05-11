@@ -794,6 +794,78 @@ def cruzamento_him(pai, mae):
 
 ##### Experimento de Palíndromos #####
 
-def funcao_objetivo_palindromos(individuo):
-    " 
+def funcao_objetivo_palindromos(palavra):
+    """ Função que calcula a distância das letras de uma palavra
     
+    Args:
+        palavra: uma lista representando um indivíduo
+        
+    Returns:
+        A distância entre todas as letras do indivíduo, a fim de encontrar um palíndromo
+        
+    """
+    
+    diferenca = 0
+    vogais = ["a","e","i","o","u"]
+    
+    
+    for letra_selecionada in palavra:
+        i = individuo.index(letra_selecionada)
+        for j in range(len(palavra)):
+            tem_vogal = []
+            tem_vogal.append(vogal)
+            
+        if tem_vogal[0] == None:
+            vogais.choice() = random.randint(0, len(individuo) - 1)
+            
+        else:
+            continue
+   
+        diferenca = diferenca + abs(ord(letra_selecionada) - ord(letra_selecionada + 1))
+
+    return diferenca
+
+def funcao_objetivo_pop_palindromos(populacao):
+    """Computa a funcao objetivo de uma populaçao no problema dos palíndromos.
+    Args:
+      populacao: lista com todos os individuos da população
+    Returns:
+      Lista contendo os valores da métrica de distância entre as palavras.
+    """
+    resultado = []
+
+    for individuo in populacao:
+        resultado.append(funcao_objetivo_palindromos(individuo))
+
+    return resultado
+
+
+def individuo_palindromo(tamanho_palavra, letras):
+    """Cria um candidato para o problema dos palindromos
+    Args:
+      tamanho_palavra: inteiro representando o tamanho da palavra.
+      letras: letras possíveis de serem sorteadas.
+    Return:
+      Lista com n letras
+    """
+
+    candidato = []
+
+    for n in range(tamanho_palavra):
+        candidato.append(gene_letra(letras))
+
+    return candidato
+
+def dicionario_palindromo(tamanho, tamanho_palavra, letras):
+    """Cria a população inicial no problema dos palindromos
+    Args
+      tamanho: tamanho da população.
+      tamanho_palavra: inteiro representando o tamanho da palavra.
+      letras: letras possíveis de serem sorteadas.
+    Returns:
+      Lista com todos os indivíduos da população no problema dos palíndromos.
+    """
+    populacao = []
+    for _ in range(tamanho):
+        populacao.append(individuo_palindromo(tamanho_palavra, letras))
+    return populacao
