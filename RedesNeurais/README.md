@@ -29,4 +29,4 @@ Matematicamente, podemos visualizar da forma que, os dados recebidos (x) são pa
 
 As sinapses tem a importante função de transportar os dados que os neurônios carregam, e durante o processo de transporte, um valor `peso` é atribuído. Os dados transportados podem então serem passados para os neurônios ocultos (que contém as funções de ativação), retornados como output, ou então sofrerem alterações matemáticas por meio de `operadores` matemáticos, como soma, multiplicação e divisão por exemplo.
 
-##EM CONSTRUÇÃO##
+## EM CONSTRUÇÃO
