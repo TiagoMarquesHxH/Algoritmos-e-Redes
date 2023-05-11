@@ -629,7 +629,7 @@ def funcao_objetivo_pop_mochila(populacao, objetos, limite, ordem_dos_nomes):
 #                         Experimentos Extras                       #
 ###############################################################################
 
-# Experimento de Himmelblau
+##### Experimento de Himmelblau #####
 
 def funcao_objetivo_himmelblau(individuo):
     """ Função que irá calcular a função fitness na função Himmelblau
@@ -790,3 +790,10 @@ def cruzamento_him(pai, mae):
     filho2 = mae[:ponto_de_corte] + pai[ponto_de_corte:]
     
     return filho1, filho2
+
+
+##### Experimento de Palíndromos #####
+
+def funcao_objetivo_palindromos(individuo):
+    " 
+    
