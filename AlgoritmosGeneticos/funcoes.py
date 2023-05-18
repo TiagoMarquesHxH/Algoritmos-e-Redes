@@ -803,16 +803,16 @@ def funcao_objetivo_palindromos(palavra):
     Returns:
         A distância entre todas as letras do indivíduo, a fim de encontrar um palíndromo
         
-    """
+    
     
     diferenca = 0
     vogais = ["a","e","i","o","u"]
     
     
     for letra_selecionada in palavra:
+        tem_vogal = []
         i = individuo.index(letra_selecionada)
         for j in range(len(palavra)):
-            tem_vogal = []
             tem_vogal.append(vogal)
             
         if tem_vogal[0] == None:
@@ -822,6 +822,13 @@ def funcao_objetivo_palindromos(palavra):
             continue
    
         diferenca = diferenca + abs(ord(letra_selecionada) - ord(letra_selecionada + 1))
+
+    return diferenca
+    """
+    
+    vogais = 'aeiou'
+    for letra_candidato, vogal in zip(palavra, ):
+        diferenca = diferenca + abs(ord(letra_candidato) - ord(letra_oficial))
 
     return diferenca
 
