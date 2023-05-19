@@ -31,6 +31,7 @@ As sinapses tem a importante função de transportar os dados que os neurônios 
 
 ## EM CONSTRUÇÃO
 
+## Elaboração dos Experimentos
 ### Experimento R.02 - Introdução à Classes
 
 Este experimento é voltado à aprendizagem de como se trabalhar com `classes`e entender seu funcionamento, bem como vinculá-la à construção de Redes Neurais Artificiais.
