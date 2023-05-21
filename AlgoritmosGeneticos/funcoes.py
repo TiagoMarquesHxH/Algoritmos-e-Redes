@@ -802,35 +802,20 @@ def funcao_objetivo_palindromos(palavra):
         
     Returns:
         A distância entre todas as letras do indivíduo, a fim de encontrar um palíndromo
-        
-    
-    
-    diferenca = 0
-    vogais = ["a","e","i","o","u"]
-    
-    
-    for letra_selecionada in palavra:
-        tem_vogal = []
-        i = individuo.index(letra_selecionada)
-        for j in range(len(palavra)):
-            tem_vogal.append(vogal)
-            
-        if tem_vogal[0] == None:
-            vogais.choice() = random.randint(0, len(individuo) - 1)
-            
-        else:
-            continue
-   
-        diferenca = diferenca + abs(ord(letra_selecionada) - ord(letra_selecionada + 1))
-
-    return diferenca
     """
     
     vogais = 'aeiou'
-    for letra_candidato, vogal in zip(palavra, ):
-        diferenca = diferenca + abs(ord(letra_candidato) - ord(letra_oficial))
+    distancia = 0
+    
+    for letra_candidato, letra_oposta in zip(palavra, palavra[::-1]):
+        distancia = distancia + abs(ord(letra_candidato) - ord(letra_oposta))
+        
+    if any(letra in palavra for letra in vogais) == True:
+        pass
+    else:
+        distancia = distancia + 100
 
-    return diferenca
+    return distancia
 
 def funcao_objetivo_pop_palindromos(populacao):
     """Computa a funcao objetivo de uma populaçao no problema dos palíndromos.
