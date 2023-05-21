@@ -153,6 +153,16 @@ Após correr o algoritmo, podemos ver que este consegue resolver o problema da m
 
 Nesta seção, temos alguns experimentos extras realizados, sua problemática e sua conclusão. Estes experimentos também se encontram neste repositório, nesta mesma pasta de Algoritmos Genéticos.
 
+## Experimento GA.05 - Palíndromos
+
+Os palíndromos são palavras que permanecem as mesmas quando são invertidas em ordem, e o objetivo deste experimento é a construção de um algoritmo que seja capaz de encontrar 10 palíndromos contendo 5 letras e no mínimo uma vogal. Estas palavras não necessariamente tem que fazer sentido, ou seja, não precisam formar palavras que existam em algum idioma.
+
+<h4> Conclusão do Experimento </h4>
+
+Abordamos neste experimento um algoritmo que encontra palíndromos, sendo estas palavras válidas ou não na lingua portuguesa ou outras línguas. Por definição inicial, devemos encontrar 10 palíndromos contendo 5 letras e no mínimo uma vogal.
+
+Após a execução do algoritmo, nota-se que é possível a utilização de `Algoritmos Genéticos` para se encontrar palíndromos. Porém, fica claro que não é um modelo de algoritmo muito viável para este tipo de problema, pois é um exercício relativamente simples e algoritmos genéticos utilizam muito do processamento do computador.
+
 ## Experimento GA.06 - Himmelblau e sua função
 
 A função Himmelblau é uma função que possui 4 mínimos globais, e é utilizada justamente para o teste de algorítmos de otimização.
@@ -172,4 +182,4 @@ Um ponto muito importante, é entender que **a própria função Himmelblau, qua
 **Também alterei um pequeno parâmetro nas mutações para que o gene do indivíduo mutado seja um valor válido (.float multiplicado por 10)**
 
 **Ao final, vemos que neste problema de minimização, o algoritmo consegue encontrar o ponto mínimo da função porém necessita de um número não tão baixo de gerações para que isto ocorra, mostrando que este algoritmo é probabilístico.
-Outros métodos, como calcular a derivada segunda da função podem ser mais eficientes, dada a ordem e a complexidade da função
+Outros métodos, como calcular a derivada segunda da função podem ser mais eficientes, dada a ordem e a complexidade da função**
