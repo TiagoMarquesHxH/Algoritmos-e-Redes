@@ -49,7 +49,7 @@ A partir dos vários testes realizados dentro deste experimento, vemos a import�
 
 ### Experimento R.03 - Construindo um grafo automaticamente
 
-Este experimento aborda as etapas inicias para a construção de uma `rede neural` artificiall, e para isso, devemos construir um `grafo computacional` que permite que sejam realizadas as operações ao computar um valor da rede.
+Este experimento aborda as etapas inicias para a construção de uma `rede neural` artificial, e para isso, devemos construir um `grafo computacional` que permite que sejam realizadas as operações ao computar um valor da rede.
 
 São abordados neste experimento, definições de métodos dunder como operadores, construção de `progenitores`, definição de `um operador mãe` e a plotagem de um grafo.
 
@@ -61,4 +61,10 @@ Nota-se que trabalhar com `grafos computacionais`é essencial para compreender c
 
 ### Experimento R.04
 
+No experimento anterior, vimos o básico de como se construir uma `rede neural` a partir de grafos computacionais. Dentre a construção do algoritmo, notamos que cada dado afeta de certa forma o valor do vértice folha `y`, e para calcularmos o peso de cada vértice no valor de **y**, utilizamos um método conhecido como `backpropagation`, que nos retorna um valor a partir do cálculo dos `gradientes locais` de cada vértice, valor este interpretado como o `peso` daquele vértice no resultado final.
 
+O cálculo do gradiente local pode ser um tanto quanto trabalhoso conforme a complexidade e a extensão da rede neural, logo, neste experimento, visamos a construção de um algoritmo que calcule o gradiente local automaticamente, e propague este cálculo para até os vetores de input. Durante a automatização, veremos estratégias de propagação como `ordenação topológica` e um algoritmo de `Autograd`, feito por **Andrej Karpathy**.
+
+#### Conclusão do Experimento
+
+No experimento abordado, demonstrou-se como é realizada a computação de `gradientes locais`, e uma grande ênfase foi dada com relação a sua visualização através de grafos. O cálculo dos gradientes locais de cada vértice são fundamentais para a realização do `backpropagation` em redes neurais. Nota-se que é possível a computação manual destes gradientes a partir de definições  de `taxas de aprendizado` e associações dos vértices com seus progenitores para o cálculo da derivada. Porém, é visível que a automatização destes cálculos é possível e recomendada, visto que quando trabalhando com redes neurais reais, a definição de todos os parâmetros e derivadas levariam muito tempo e consumiriam muito mais linhas de código, podendo dificultar a aprendizagem do algoritmo sobre a rede.
